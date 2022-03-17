@@ -12,7 +12,7 @@ describe('directory', () => {
   });
   it('should get current path', async () => {
     const currPath = await directory.currentPath();
-    expect(currPath).to.be.equal('/Users/awerner/GitHub/Alex-Werner/nodeForage/src');
+    expect(currPath).to.contain('nodeForage/src');
   });
   it('should list all file of a folder', async () => {
     const currPath = await directory.currentPath();
@@ -25,8 +25,8 @@ describe('directory', () => {
       'index.js'];
     expect(listSource).to.be.deep.equal(expectedListSource);
 
-    const listSourceEmpty = await directory.list(`${currPath}/../test/fixtures/dir-a`);
-    expect(listSourceEmpty).to.be.deep.equal([]);
+    const listSourceEmpty = await directory.list(`${currPath}/../test/fixtures/dir-b`);
+    expect(listSourceEmpty).to.be.deep.equal(['file-b.md']);
 
     const pathDirNotExist = `${currPath}/../test/fixtures/dir-not-exist`;
     return directory
@@ -35,13 +35,13 @@ describe('directory', () => {
         throw new Error('Expected an error');
       }).catch((err) => {
         expect(err).to.be.an('Error');
-        expect(err.message).to.be.equal('ENOENT: no such file or directory, scandir \'/Users/awerner/GitHub/Alex-Werner/nodeForage/src/../test/fixtures/dir-not-exist\'');
+        expect(err.message).to.contain('ENOENT: no such file or directory, scandir');
         return err;
       });
   });
   it('should get if a directory exists', async () => {
     const currPath = await directory.currentPath();
-    const exist = await directory.exists(`${currPath}/../test/fixtures/dir-a`);
+    const exist = await directory.exists(`${currPath}/../test/fixtures/dir-b`);
     expect(exist).to.be.deep.equal(true);
 
     const notexist = await directory.exists(`${currPath}/../test/fixtures/dir-not-exist`);
