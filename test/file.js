@@ -11,7 +11,7 @@ describe('file', function suite() {
   });
   it('should get current file', async () => {
     const currPath = await file.currentPath();
-    expect(currPath).to.be.equal('/Users/awerner/GitHub/Alex-Werner/nodeForage/src/NodeForage.js');
+    expect(currPath).to.be.contain('nodeForage/src/NodeForage.js');
   });
   it('should get if a file exists', async () => {
     const currPath = path.dirname(await file.currentPath());
@@ -79,7 +79,7 @@ describe('file', function suite() {
     expect((JSON.parse(data))).to.deep.equal(validData);
 
     const store = await file.download(uri, outputFile);
-    expect(store).to.be.equal('/Users/awerner/GitHub/Alex-Werner/nodeForage/src/../.fs.tests-file/writeTest.json');
+    expect(store).to.be.contain('nodeForage/src/../.fs.tests-file/writeTest.json');
     const exist = await file.exists(outputFile);
     expect(exist).to.be.equal(true);
     const read = await file.read(outputFile);

@@ -2,7 +2,7 @@ const path = require('path');
 const file = require('./file.js');
 const { defaultOpts } = require('../CONSTANTS.json').NodeForage;
 const find = require('lodash.find');
-const {isMatch} = require('lodash');
+const isMatch = require('lodash.ismatch');
 class NodeForage {
   constructor(opts = {}, parentFilepath = module.parent.filename) {
     this.name = opts.name || defaultOpts.name;
