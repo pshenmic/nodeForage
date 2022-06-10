@@ -1,3 +1,4 @@
+const path = require('path');
 const file = require('./file.js');
 const { defaultOpts } = require('../CONSTANTS.json').NodeForage;
 const find = require('lodash.find');
@@ -10,7 +11,7 @@ class NodeForage {
     this.ext = opts.ext || defaultOpts.ext;
     this.dir = opts.dir || process.cwd();
     this.isReady = false;
-    this.filePath = `${this.dir}/${this.name}${this.ext}`;
+    this.filePath = path.join(this.dir, `${this.name}${this.ext}`);
   }
 
   async init() {
